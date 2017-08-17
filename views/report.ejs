@@ -1,0 +1,88 @@
+<%- include layout/header %>
+<br>
+<form action="/report" method="post">
+  <div class="form-group">
+    <span>
+      <label for="day">Day:</label>
+      <select id="day" name="day_1">
+        <option value="17" selected>17</option>
+      </select>
+    </span>
+    <span>
+      <label for="month">Month:</label>
+      <select name="month_1">
+        <option value="01" selected>January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </span>
+    <span>
+      <label for="year">Year:</label>
+      <select name="year_1">
+        <option value="2017">2017</option>
+      </select>
+    </span>
+  </div>
+  <div class="">
+    <span>
+      <label for="day">Day:</label>
+      <select id="day" name="day_1">
+        <option value="19" selected>19</option>
+      </select>
+    </span>
+    <span>
+      <label for="month">Month:</label>
+      <select name="month_1">
+        <option value="01" >January</option>
+        <option value="02">February</option>
+        <option value="03">March</option>
+        <option value="04">April</option>
+        <option value="05">May</option>
+        <option value="06">June</option>
+        <option value="07">July</option>
+        <option value="08">August</option>
+        <option value="09">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12" selected>December</option>
+      </select>
+    </span>
+    <span>
+      <label for="year">Year:</label>
+      <select name="year_1">
+        <option value="2017">2017</option>
+      </select>
+    </span>
+  </div>
+  <br>
+  <button type="submit" name="button">Check</button>
+</form>
+
+<canvas id="myChart" width="1600" height="900"></canvas>
+<script>
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: [<%=dates%>],
+    datasets: [
+      {
+        data: [<%= totals %>],
+        label: "Total Penjualan",
+        borderColor: "#3e95cd",
+        fill: false
+      }
+    ]
+  }
+});
+</script>
+<%- include layout/footer %>
