@@ -36,6 +36,7 @@
     <span>
       <label for="day">Day:</label>
       <select id="day" name="day_1">
+        <option value="18" selected>18</option>
         <option value="19" selected>19</option>
       </select>
     </span>
@@ -69,11 +70,14 @@
 
 <canvas id="myChart" width="1600" height="900"></canvas>
 <script>
+
+var tes=`<%= dates %>`
+var tes2 = tes.split(',')
 var ctx = document.getElementById("myChart");
-var myChart = new Chart(ctx, {
+var myChart = new Chart(ctx,{
   type: 'bar',
   data: {
-    labels: [<%=dates%>],
+    labels: tes2,
     datasets: [
       {
         data: [<%= totals %>],

@@ -25,9 +25,7 @@ router.get('/',(req,res)=>{
 
 router.post('/',(req,res)=>{
   var date1 = `${req.body.year_1[0]}-${req.body.month_1[0]}-${req.body.day_1[0]}`
-  var date2 = `${req.body.year_1[1]}-${req.body.month_1[1]}-${req.body.day_1[1]}`
-  console.log(date1);
-  console.log(date2);
+  var date2 = `${req.body.year_1[1]}-${req.body.month_1[1]}-${Number(req.body.day_1[1])+1}`
 
   sequelize.query(`SELECT CAST("Transactions"."createdAt" AS DATE), SUM("Transactions".total) as "total" FROM public."Transactions" WHERE "Transactions"."createdAt" BETWEEN '${date1}' AND '${date2}' GROUP BY CAST("Transactions"."createdAt" AS DATE);`)
   .then((row)=>{
@@ -35,8 +33,7 @@ router.post('/',(req,res)=>{
     var total = []
     var num = 0
     row[0].forEach((x)=>{
-      console.log(x.createdAt);
-      date.push(x.createdAt.toString())
+      date.push(x.createdAt)
       total.push(x.total)
       num++
       if(row[0].length === num){
