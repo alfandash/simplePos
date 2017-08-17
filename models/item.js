@@ -5,12 +5,14 @@ module.exports = function(sequelize, DataTypes) {
     stock: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     keterangan: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  Item.associate = models => {
+    Item.belongsToMany(models.Transaction,{
+      through:models.ItemTransaction,
+      foreignKey: 'idItems'
+    })
+  }
+
   return Item;
 };

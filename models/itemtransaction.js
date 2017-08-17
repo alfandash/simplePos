@@ -7,12 +7,17 @@ module.exports = function(sequelize, DataTypes) {
     total: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
     subtotal: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  ItemTransaction.associate = models => {
+    ItemTransaction.belongsTo(models.Item,{
+        foreignKey:"idItems"
+      })
+
+    ItemTransaction.belongsTo(models.Transaction,{
+        foreignKey:"idTransactions"
+      })
+  }
+
   return ItemTransaction;
 };

@@ -1,0 +1,34 @@
+<%- include layout/header %>
+<br>
+<h2>Histori Transaksi</h2>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>#</th>
+      <th>No Transaksi</th>
+      <th>Total Belanja</th>
+      <th>Tanggal Transaksi</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(transactions.length!==0){transactions.forEach(row=>{%>
+    <tr>
+      <td><%= row.id %></td>
+      <td><%= row.noTransaction %></td>
+      <td>Rp. <%= row.total %></td>
+      <td><%= row.createdAt %></td>
+      <td><a href="history/detail?id=<%= row.id %>">Detail</a></td>
+    </tr>
+    <%})} else {%>
+      <tr>
+      <td colspan="5" >Belum ada transaksi</td>
+      </tr>
+    <% }%>
+  </tbody>
+</table>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
+<a href="/"><button type="button" class="btn btn-danger">Back to Home</button></a>
+<br>
+<%- include layout/footer %>

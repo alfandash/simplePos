@@ -32,12 +32,14 @@ app.use(session({
 var indexRoute = require('./routes/index');
 var itemRoute = require('./routes/item');
 var transactionRoute = require('./routes/transaction');
+var historyRoute = require('./routes/history');
 var users = require('./routes/users');
 
 app.use('/', indexRoute);
 app.use('/users', users);
 app.use('/item', itemRoute);
 app.use('/transaction', transactionRoute);
+app.use('/history', historyRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

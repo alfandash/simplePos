@@ -1,0 +1,36 @@
+<%- include layout/header %>
+<br>
+<h2>Histori Transaksi No.<%= transaction.noTransaction %></h2>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>#</th>
+      <th>Nama Barang</th>
+      <th>Harga Satuan</th>
+      <th>Jumlah Barang</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(items.length!==0){items.forEach(row=>{%>
+    <tr>
+      <td><%= row.id %></td>
+      <td><%= row.name %></td>
+      <td>Rp. <%= row.price %></td>
+      <td><%= row.ItemTransaction.total %></td>
+      <td>Rp. <%= row.ItemTransaction.subtotal %></td>
+    </tr>
+    <%})} else {%>
+      <tr>
+      <td colspan="5" >Error atau barang transaksi hilang</td>
+      </tr>
+    <% }%>
+    <tr>
+    <td colspan="4" >Total Belanja </td>
+    <td>Rp. <%= transaction.total %></td>
+    </tr>
+  </tbody>
+</table>
+<a href="/history"><button type="button" class="btn btn-danger">Back</button></a>
+<br>
+<%- include layout/footer %>

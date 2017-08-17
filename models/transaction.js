@@ -4,12 +4,14 @@ module.exports = function(sequelize, DataTypes) {
     noTransaction: DataTypes.INTEGER,
     total: DataTypes.INTEGER,
     moneyPay: DataTypes.INTEGER
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+
+  Transaction.associate = models => {
+    Transaction.belongsToMany(models.Item,{
+      through:models.ItemTransaction,
+      foreignKey: 'idTransactions'
+    })
+  }
+
   return Transaction;
 };

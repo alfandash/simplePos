@@ -3,7 +3,6 @@ var router = express.Router();
 
 
 const db = require('../models');
-//var isKtp = require('../helpers/isKtp');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
