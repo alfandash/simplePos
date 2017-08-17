@@ -1,16 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-
 const db = require('../models');
 
-/* GET users listing. */
 router.get('/', function(req, res) {
   db.Item.findAll({
       order: [
         ['name', 'ASC']
       ]
-      //,include: [db.Batch]
     })
   .then((rows)=>{
     res.render('item',{items:rows,
@@ -39,7 +36,7 @@ router.post(`/add`,function(req,res){
     res.redirect(`/item?success=Barang sudah di daftarkan`)
   })
   .catch((err)=>{
-    res.redirect(`/item?error=`+err.message)
+    res.redirect(`/item/add?error=`+err.errors[0].message)
   })
 })
 
@@ -65,8 +62,8 @@ router.get(`/edit`,function(req,res){
       error:req.query.error,
       success:req.query.success})
   })
-  .catch(()=>{
-      res.redirect(`/item/edit?error=`+err)
+  .catch((err)=>{
+      res.redirect(`/item/edit?id=${req.query.id}&error=`+err.errors[0].message)
   })
 })
 
@@ -85,8 +82,8 @@ router.post(`/edit`,function(req,res){
   .then(()=>{
     res.redirect(`/item?success=Barang berhasil diupdate`)
   })
-  .catch(()=>{
-    res.redirect(`/item/edit?error=`+err)
+  .catch((err)=>{
+  res.redirect(`/item/edit?id=${req.query.id}&error=`+err.errors[0].message)
   })
   //res.send(add)
 })

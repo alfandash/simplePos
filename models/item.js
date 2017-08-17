@@ -1,9 +1,30 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Item = sequelize.define('Item', {
-    name: DataTypes.STRING,
-    stock: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
+    name: {
+      type:DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Name tidak boleh kosong"
+        }
+      }
+    },
+    stock: {
+      type:DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: "Stock tidak boleh kosong"
+        }
+      }
+    },
+    price: {
+      type:DataTypes.INTEGER,
+      validate: {
+        notEmpty: {
+          msg: "Harga tidak boleh kosong"
+        }
+      }
+    },
     keterangan: DataTypes.STRING
   });
 

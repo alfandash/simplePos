@@ -18,7 +18,8 @@ const sequelize = new Sequelize('adapos', 'alfandash', 'alfandiki91', {
 router.get('/',(req,res)=>{
   res.render(`report`,{
       dates:[],
-      totals:[]
+      totals:[],
+      error: req.query.error
     })
 })
 
@@ -27,26 +28,28 @@ router.post('/',(req,res)=>{
   var date1 = `${req.body.year_1[0]}-${req.body.month_1[0]}-${req.body.day_1[0]}`
   var date2 = `${req.body.year_1[1]}-${req.body.month_1[1]}-${Number(req.body.day_1[1])+1}`
 
-  sequelize.query(`SELECT CAST("Transactions"."createdAt" AS DATE), SUM("Transactions".total) as "total" FROM public."Transactions" WHERE "Transactions"."createdAt" BETWEEN '${date1}' AND '${date2}' GROUP BY CAST("Transactions"."createdAt" AS DATE);`)
-  .then((row)=>{
-    var date = []
-    var total = []
-    var num = 0
-    row[0].forEach((x)=>{
-      date.push(x.createdAt)
-      total.push(x.total)
-      num++
-      if(row[0].length === num){
-        console.log(date);
-        console.log(total);
-        res.render('report',{
-          dates:date,
-          totals:total
-        })
-      }
+  if (date2<date1) {
+    res.redirect(`/report?error=Tanggal mula tidak boleh lebih kecil`)
+  } else {
+    sequelize.query(`SELECT CAST("Transactions"."createdAt" AS DATE), SUM("Transactions".total) as "total" FROM public."Transactions" WHERE "Transactions"."createdAt" BETWEEN '${date1}' AND '${date2}' GROUP BY CAST("Transactions"."createdAt" AS DATE);`)
+    .then((row)=>{
+      var date = []
+      var total = []
+      var num = 0
+      row[0].forEach((x)=>{
+        date.push(x.createdAt)
+        total.push(x.total)
+        num++
+        if(row[0].length === num){
+          res.render('report',{
+            dates:date,
+            totals:total,
+            error:req.query.error,
+          })
+        }
+      })
     })
-  })
-
+  }
 })
 
 
@@ -55,7 +58,6 @@ router.get('/detail',(req,res)=> {
   .then((rowTransaction)=>{
     rowTransaction.getItems()
     .then((rowsItem)=>{
-      //res.send(row)
       res.render('report',{
         transaction:rowTransaction,
         items: rowsItem,

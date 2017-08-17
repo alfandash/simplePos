@@ -1,5 +1,6 @@
 <%- include layout/header %>
 <br>
+<h4 style="color:red"><%= error %></h4>
 <form action="/report" method="post">
   <div class="form-group">
     <span>
@@ -36,6 +37,7 @@
     <span>
       <label for="day">Day:</label>
       <select id="day" name="day_1">
+        <option value="11" selected>11</option>
         <option value="18" selected>18</option>
         <option value="19" selected>19</option>
       </select>
@@ -67,15 +69,13 @@
   <br>
   <button type="submit" name="button">Check</button>
 </form>
-
-<canvas id="myChart" width="1600" height="900"></canvas>
+<canvas id="myChart" width="1600" height="700"></canvas>
 <script>
-
 var tes=`<%= dates %>`
 var tes2 = tes.split(',')
 var ctx = document.getElementById("myChart");
 var myChart = new Chart(ctx,{
-  type: 'bar',
+  type: 'line',
   data: {
     labels: tes2,
     datasets: [

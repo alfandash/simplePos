@@ -5,7 +5,6 @@ var router = express.Router();
 const db = require('../models');
 var generateTransactionNumber = require('../helpers/generateTransactionNumber');
 
-/* GET users listing. */
 router.get('/', function(req, res) {
   if (req.session.id_items.length !== 0) {
     db.Item.findAll({
@@ -48,9 +47,13 @@ router.get('/add', function(req, res) {
 
 router.post(`/add`,function(req,res){
   if (req.session.id_items.indexOf(req.body.idItems) === -1) {
-    req.session.id_items.push(req.body.idItems);
-    req.session.total_items.push(req.body.total);
-    res.redirect('/transaction?success=Barang berhasil di tambahkan')
+    if (req.body.total !== '') {
+      req.session.id_items.push(req.body.idItems);
+      req.session.total_items.push(req.body.total);
+      res.redirect('/transaction?success=Barang berhasil di tambahkan')
+    } else {
+      res.redirect('/transaction/add?error=Total tidak boleh kosong')
+    }
   } else {
     res.redirect('/transaction?error=barang sudah ada pada keranjang')
   }
@@ -58,7 +61,7 @@ router.post(`/add`,function(req,res){
 
 router.get(`/emptyCart`,function(req,res){
   req.session.destroy()
-  res.redirect('/transaction')
+  res.redirect('/transaction?success=Keranjang berhasil di kosongkan')
 })
 
 router.get(`/delete`,function(req,res){
@@ -84,9 +87,13 @@ router.get(`/edit`,function(req,res){
 })
 
 router.post(`/edit`,function(req,res){
-  var index = req.session.id_items.indexOf(req.query.id)
-  req.session.total_items.splice(index, 1, req.body.total);
-  res.redirect('/transaction?success=Barang berhasil di rubah')
+  if (req.body.total !== '') {
+    var index = req.session.id_items.indexOf(req.query.id)
+    req.session.total_items.splice(index, 1, req.body.total);
+    res.redirect('/transaction?success=Barang berhasil di rubah');
+  } else {
+    res.redirect(`/transaction?id=${req.query.id}&error=Jumlah tidak boleh kosong`);
+  }
 })
 
 router.get(`/checkout`,function(req,res){
@@ -99,7 +106,6 @@ router.get(`/checkout`,function(req,res){
     .then((rows)=>{
       var num=0;
       var totalTransaction = 0;
-      //console.log(rows[0].dataValues.name);
       rows.forEach((row)=>{
         row.dataValues.total_items = req.session.total_items[num]
         row.dataValues.subtotal = req.session.total_items[num] * row.price
@@ -117,13 +123,10 @@ router.get(`/checkout`,function(req,res){
       });
     })
     .catch((err)=>{
-      console.log(err);
-      res.send(err)
+      res.redirect(`/transaction?error=`+err);
     })
   } else {
-    res.render('transaction',{items:[],
-      error:req.query.error,
-      success:req.query.success})
+    res.redirect(`/transaction`);
   }
 })
 
@@ -163,9 +166,6 @@ router.post(`/checkout`,function(req,res){
       res.redirect('/transaction?success=Transaksi berhasil')
     })
   })
-
 })
-
-
 
 module.exports = router;
