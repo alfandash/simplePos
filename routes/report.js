@@ -19,7 +19,8 @@ router.get('/',(req,res)=>{
   res.render(`report`,{
       dates:[],
       totals:[],
-      error: req.query.error
+      error: req.query.error,
+      typeChart:''
     })
 })
 
@@ -27,7 +28,6 @@ router.get('/',(req,res)=>{
 router.post('/',(req,res)=>{
   var date1 = `${req.body.year_1[0]}-${req.body.month_1[0]}-${req.body.day_1[0]}`
   var date2 = `${req.body.year_1[1]}-${req.body.month_1[1]}-${Number(req.body.day_1[1])+1}`
-
   if (date2<date1) {
     res.redirect(`/report?error=Tanggal mula tidak boleh lebih kecil`)
   } else {
@@ -44,6 +44,7 @@ router.post('/',(req,res)=>{
           res.render('report',{
             dates:date,
             totals:total,
+            typeChart: req.body.chart,
             error:req.query.error,
           })
         }

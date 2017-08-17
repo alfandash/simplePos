@@ -5,7 +5,11 @@ const db = require('../models');
 
 
 router.get('/',(req,res)=>{
-  db.Transaction.findAll()
+  db.Transaction.findAll({
+    order: [
+      ['createdAt','ASC']
+    ]
+  })
   .then((rows)=>{
     res.render('history',{transactions:rows,
       error:req.query.error,
