@@ -1,0 +1,26 @@
+<%- include layout/header %>
+<br>
+<h3>Tambah Barang</h3>
+<br>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
+<form action="/transaction/add" method="post">
+  <div class="form-group">
+    <label>Barang</label><br>
+    <select name="idItems">
+      <% items.forEach((z)=>{ %>
+      <option value="<%=z.id%>"><%=z.name%></option>
+      <%})%>
+    </select><br>
+  </div>
+  <div class="form-group">
+    <label> Total barang</label><br>
+    <input type="number" name="total">
+  </div>
+  <button type="submit" class="btn btn-primary" >Tambah Barang Belanja</button>
+  <a href="/transaction"><button type="button" class="btn btn-danger">Cancel</button></a>
+</form>
+<br>
+
+<br>
+<%- include layout/footer %>

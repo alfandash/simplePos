@@ -1,0 +1,26 @@
+<%- include layout/header %>
+<br>
+<h3>Edit Barang Belanja</h3>
+<br>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
+<form action="/transaction/edit?id=<%=item.id%>" method="post">
+  <div class="form-group">
+    <label> Nama Barang</label><br>
+    <input type="text" name="name" value="<%=item.name%>" disabled>
+  </div>
+  <div class="form-group">
+    <label> Harga satuan</label><br>
+    <input type="number" name="price" value="<%=item.price%>" disabled>
+  </div>
+  <div class="form-group">
+    <label> Total beli</label><br>
+    <input type="number" name="total" value="<%=total%>">
+  </div>
+  <button type="submit" class="btn btn-primary" >Tambah Barang Belanja</button>
+  <a href="/transaction"><button type="button" class="btn btn-danger">Cancel</button></a>
+</form>
+<br>
+
+<br>
+<%- include layout/footer %>

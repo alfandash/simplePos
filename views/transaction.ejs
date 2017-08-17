@@ -1,0 +1,42 @@
+<%- include layout/header %>
+<br>
+<h2>Transaksi Barang </h2>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>#</th>
+      <th>Nama</th>
+      <th>Jumlah Beli</th>
+      <th>Harga</th>
+      <th>Subtotal</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(items.length!==0){items.forEach(row=>{%>
+    <tr>
+      <td><%= row.id %></td>
+      <td><%= row.name %></td>
+      <td><%= row.total_items %></td>
+      <td>Rp. <%= row.price %></td>
+      <td>Rp.<%= row.subtotal %></td>
+      <td><a href="transaction/edit?id=<%= row.id %>">Edit</a> | <a href="transaction/delete?id=<%= row.id %>" onclick="return confirm('Kamu yakin ingin hapus barang<%= row.name %> ?');">Delete</a></td>
+    </tr>
+    <%})} else {%>
+      <tr>
+      <td colspan="6" >Belum ada barang belanjaan </td>
+      </tr>
+    <% }%>
+  </tbody>
+</table>
+<a href="/transaction/add"><button type="button" class="btn btn-primary">Tambah Barang</button></a>
+<a href="/transaction/emptyCart"><button type="button" class="btn btn-danger">Kosongkan keranjang</button></a>
+<% if(items.length!==0){%>
+<br>
+<br>
+<a href="transaction/checkout"><button type="button" class="btn btn-primary">checkout</button></a>
+<%}%>
+<br>
+<%- include layout/footer %>

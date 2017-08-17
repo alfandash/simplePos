@@ -1,0 +1,35 @@
+<%- include layout/header %>
+<br>
+<h2>Transaksi Barang </h2>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>Nama</th>
+      <th>Jumlah Beli</th>
+      <th>Harga</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(items.length!==0){items.forEach(row=>{%>
+    <tr>
+      <td><%= row.name %></td>
+      <td><%= row.dataValues.total_items %></td>
+      <td>Rp. <%= row.price %></td>
+      <td>Rp.<%= row.dataValues.subtotal %></td>
+    </tr>
+    <%})}%>
+    <tr>
+    <td colspan="3" >Total Belanja </td>
+    <td>Rp. <%= total %></td>
+    </tr>
+  </tbody>
+</table>
+
+<form action="/transaction/checkout" method="post">
+  <button type="submit" name="button" class="btn btn-primary">Transaksi</button>
+</form>
+<br>
+<%- include layout/footer %>

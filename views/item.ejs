@@ -1,0 +1,31 @@
+<%- include layout/header %>
+<br>
+<h2>Tabel Stock Barang</h2>
+<table class="table">
+  <thead class="thead-default">
+    <tr>
+      <th>#</th>
+      <th>Nama</th>
+      <th>Stock</th>
+      <th>Harga</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(items.length!==0){items.forEach(row=>{%>
+    <tr>
+      <td><%= row.id %></td>
+      <td><%= row.name %></td>
+      <td><%= row.stock %></td>
+      <td>Rp. <%= row.price %></td>
+      <td><a href="transaction/edit?id_cart=<%= row.id %>">Edit</a> | <a href="transaction/delete?id_cart=<%= row.id %>" onclick="return confirm('Kamu yakin ingin hapus barang<%= row.name %> ?');">Delete</a></td>
+    </tr>
+    <%})}%>
+  </tbody>
+</table>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
+<a href="item/add"><button type="button" class="btn btn-primary">Tambah Barang</button></a>
+<a href="/"><button type="button" class="btn btn-danger">Back to Home</button></a>
+<br>
+<%- include layout/footer %>
