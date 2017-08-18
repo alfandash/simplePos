@@ -1,6 +1,8 @@
 <%- include layout/header %>
 <br>
 <h2>Histori Transaksi</h2>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
 <table class="table">
   <thead class="thead-default">
     <tr>
@@ -17,7 +19,7 @@
       <td><%= row.id %></td>
       <td><%= row.noTransaction %></td>
       <td>Rp. <%= row.total %></td>
-      <td><%= row.createdAt %></td>
+      <td><%= row.createdAt.toDateString() %></td>
       <td><a href="history/detail?id=<%= row.id %>">Detail</a></td>
     </tr>
     <%})} else {%>
@@ -27,8 +29,6 @@
     <% }%>
   </tbody>
 </table>
-<h4 style="color:red"><%= error %></h4>
-<h4 style="color:green"><%= success %></h4>
 <a href="/"><button type="button" class="btn btn-danger">Back to Home</button></a>
 <br>
 <%- include layout/footer %>

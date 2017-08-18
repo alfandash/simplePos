@@ -1,6 +1,8 @@
 <%- include layout/header %>
 <br>
 <h2>Histori Transaksi No.<%= transaction.noTransaction %></h2>
+<h4 style="color:red"><%= error %></h4>
+<h4 style="color:green"><%= success %></h4>
 <table class="table">
   <thead class="thead-default">
     <tr>
@@ -31,6 +33,18 @@
     </tr>
   </tbody>
 </table>
+
+<form action="/history/detail/?id=<%=id%>" method="post">
+  <div class="form-group">
+    <label>Masukkan Nomor Hp (62 pada awal) : </label>
+    <select name="phone_number">
+      <option value="628561771911">628561771911</option>
+      <option value="6281213568715">6281213568715</option>
+    </select>
+    <%# <input type="number" name="phone_number" value="628561771911">%>
+    <button type="submit" name="button" class="btn btn-primary">Kirim Reciept</button>
+  </div>
+</form>
 <a href="/history"><button type="button" class="btn btn-danger">Back</button></a>
 <br>
 <%- include layout/footer %>

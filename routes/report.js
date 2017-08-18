@@ -4,18 +4,8 @@ var router = express.Router();
 const db = require('../models');
 const Chart = require('chart.js');
 const Sequelize = require('sequelize');
-// const sequelize = new Sequelize('adapos', 'alfandash', 'alfandiki91', {
-//   host: 'localhost',
-//   dialect: 'postgres',
-//   pool: {
-//     max: 5,
-//     min: 0,
-//     idle: 10000
-//   },
-// });
-
-const sequelize = new Sequelize('d9u55vvmeeshpg', 'ckacvotbttsvvz', '9a89f068d85151db69846e3780531bd05e4871a74350feb4ffd0006fc1e8f538', {
-  host: 'ec2-107-22-167-179.compute-1.amazonaws.com',
+const sequelize = new Sequelize('adapos', 'alfandash', 'alfandiki91', {
+  host: 'localhost',
   dialect: 'postgres',
   pool: {
     max: 5,
@@ -23,6 +13,16 @@ const sequelize = new Sequelize('d9u55vvmeeshpg', 'ckacvotbttsvvz', '9a89f068d85
     idle: 10000
   },
 });
+
+// const sequelize = new Sequelize('d9u55vvmeeshpg', 'ckacvotbttsvvz', '9a89f068d85151db69846e3780531bd05e4871a74350feb4ffd0006fc1e8f538', {
+//   host: 'ec2-107-22-167-179.compute-1.amazonaws.com',
+//   dialect: 'postgres',
+//   pool: {
+//     max: 5,
+//     min: 0,
+//     idle: 10000
+//   },
+// });
 
 
 router.get('/',(req,res)=>{
